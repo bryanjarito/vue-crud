@@ -73,11 +73,10 @@ export default {
   methods: {
     async addItem (item) {
       const news = this.items.filter(i => i.title === item.title)
-      console.log(news)
       if (news.length > 0) {
         this.remarkTitle = item.title
         this.showDangerAlert()
-      } else if (this.$v.title.error && this.$v.content.error && this.$v.date.error) {
+      } else if (!this.$v.title.error && !this.$v.content.error && !this.$v.date.error) {
         this.remarkTitle = item.title
         await this.$store.dispatch('addItem', item)
         this.showSuccessAlert()
